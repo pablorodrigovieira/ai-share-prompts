@@ -1,3 +1,5 @@
+import Feed from "@components/Feed";
+
 export default function Home() {
   return (
     <section className="w-full flex-center flex-col">
@@ -9,6 +11,7 @@ export default function Home() {
         </span>
       </h1>
       <p className="desc text-center">AI tool to create and share creative prompts</p>
+      <Feed />
     </section>
   )
 }
