@@ -56,6 +56,7 @@ const Form = (props: IForm) => {
             })}
             placeholder="#tag"
             className="form_input"
+            required
           />
         </label>
 

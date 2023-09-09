@@ -26,7 +26,6 @@ const CreatePrompt = () => {
           userId: session?.user.id
         })
       })
-      console.log('res', res)
       if(res && res.ok){
         router.push('/')
       }
