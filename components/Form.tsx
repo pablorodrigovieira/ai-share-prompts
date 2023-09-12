@@ -64,7 +64,7 @@ const Form = (props: IForm) => {
           />
         </label>
 
-        <div className="flex-end mx-3 mb-5 gap-4">
+        <span className="flex-end mx-3 mb-5 gap-4">
           <Link href="/" className="text-gray-500-text-sm">
             Cancel
           </Link>
@@ -75,7 +75,7 @@ const Form = (props: IForm) => {
           >
             {submitting ? `${type}...` : type}
           </button>
-        </div>
+        </span>
       </form>
     </section>
   );
