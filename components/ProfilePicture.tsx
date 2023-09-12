@@ -1,9 +1,9 @@
-import React from 'react';
-import Image from '@node_modules/next/image';
+import React from "react";
+import Image from "@node_modules/next/image";
 
 interface IProfilePicture {
-  setToggleDropdown: ((state: any) => void),
-  image: string
+  setToggleDropdown: (state: any) => void;
+  image: string;
 }
 
 const ProfilePicture = (props: IProfilePicture) => {

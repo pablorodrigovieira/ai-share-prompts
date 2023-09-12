@@ -1,5 +1,5 @@
-import React from 'react';
-import Link from 'next/link';
+import React from "react";
+import Link from "next/link";
 
 interface IPost {
   prompt: string;
@@ -11,7 +11,7 @@ interface IForm {
   post: IPost;
   submitting: boolean;
   setPost: (post: IPost) => void;
-  handleSubmit: (e) => void
+  handleSubmit: (e) => void;
 }
 
 const Form = (props: IForm) => {
@@ -34,9 +34,12 @@ const Form = (props: IForm) => {
           </span>
           <textarea
             value={post.prompt}
-            onChange={(e) => setPost({
-              ...post, prompt: e.target.value
-            })}
+            onChange={(e) =>
+              setPost({
+                ...post,
+                prompt: e.target.value,
+              })
+            }
             required
             placeholder="Write your prompt here..."
             className="form_textarea"
@@ -45,15 +48,16 @@ const Form = (props: IForm) => {
         <label>
           <span className="font-satoshi font-semibold text-base text-gray-700">
             Tag {` `}
-            <span className="font-normal">
-              (#product, #web, #idea)
-            </span>
+            <span className="font-normal">(#product, #web, #idea)</span>
           </span>
           <input
             value={post.tag}
-            onChange={(e) => setPost({
-              ...post, tag: e.target.value
-            })}
+            onChange={(e) =>
+              setPost({
+                ...post,
+                tag: e.target.value,
+              })
+            }
             placeholder="#tag"
             className="form_input"
             required
@@ -61,7 +65,9 @@ const Form = (props: IForm) => {
         </label>
 
         <div className="flex-end mx-3 mb-5 gap-4">
-          <Link href="/" className="text-gray-500-text-sm">Cancel</Link>
+          <Link href="/" className="text-gray-500-text-sm">
+            Cancel
+          </Link>
           <button
             type="submit"
             disabled={submitting}
@@ -70,7 +76,6 @@ const Form = (props: IForm) => {
             {submitting ? `${type}...` : type}
           </button>
         </div>
-
       </form>
     </section>
   );
