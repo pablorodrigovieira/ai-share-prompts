@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Form from "@components/Form";
 
@@ -32,7 +32,7 @@ const UpdatePrompt = () => {
     }
   };
 
-  const updatePrompt = async (e) => {
+  const updatePrompt = async (e: FormEvent) => {
     e.preventDefault();
 
     if (!promptId) {

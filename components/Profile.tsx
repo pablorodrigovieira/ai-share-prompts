@@ -1,13 +1,13 @@
 import React from "react";
 import PromptCard from "@components/PromptCard";
-import { IPost } from "@utils/interfaces";
+import { IPrompt } from "@utils/interfaces";
 
 interface IProfile {
   name: string;
   desc: string;
-  data: IPost[];
-  handleEdit?: (post: IPost) => void;
-  handleDelete?: (post: IPost) => void;
+  data: IPrompt[];
+  handleEdit?: (post: IPrompt) => void;
+  handleDelete?: (post: IPrompt) => void;
 }
 
 const Profile = (props: IProfile) => {

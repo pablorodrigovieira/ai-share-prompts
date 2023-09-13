@@ -11,9 +11,10 @@ import {
 } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import ProfilePicture from "@components/ProfilePicture";
+import { IUserSession } from "@utils/interfaces";
 
 const Nav = () => {
-  const { data: session } = useSession();
+  const { data: session } = useSession() as unknown as IUserSession;
   const router = useRouter();
   const [providers, setProviders] = useState<Record<
     string,
@@ -62,7 +63,7 @@ const Nav = () => {
             <Link href="/profile">
               <ProfilePicture
                 setToggleDropdown={() => setToggleDropdown((prev) => !prev)}
-                image={session?.user.image}
+                image={session?.user.image ?? ""}
               />
             </Link>
           </div>
@@ -91,7 +92,7 @@ const Nav = () => {
           <div className="flex">
             <ProfilePicture
               setToggleDropdown={() => setToggleDropdown((prev) => !prev)}
-              image={session?.user.image}
+              image={session?.user.image ?? ""}
             />
             {toggleDropdown && (
               <div className="dropdown">
@@ -114,6 +115,7 @@ const Nav = () => {
                   onClick={() => {
                     setToggleDropdown(false);
                     signOut();
+                    router.push("/");
                   }}
                   className="mt-5 w-full black_btn"
                 >

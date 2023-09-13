@@ -3,15 +3,14 @@ import React, { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Profile from "@components/Profile";
-import { Session } from "@node_modules/next-auth";
-import { IPost } from "@utils/interfaces";
+import { IPrompt, IUserSession } from "@utils/interfaces";
 
 const MyProfile = () => {
-  const { data: session } = useSession<Session>();
-  const [posts, setPosts] = useState([]);
+  const { data: session } = useSession() as unknown as IUserSession;
+  const [posts, setPosts] = useState<IPrompt[]>([]);
   const router = useRouter();
 
-  const handleEdit = (post: IPost) => {
+  const handleEdit = (post: IPrompt) => {
     try {
       router.push(`/update-prompt?id=${post._id}`);
     } catch (e) {
@@ -19,7 +18,7 @@ const MyProfile = () => {
     }
   };
 
-  const handleDelete = async (post: IPost) => {
+  const handleDelete = async (post: IPrompt) => {
     try {
       const hasConfirmed = confirm(
         "Are you sure you want to delete this prompt?",
@@ -52,7 +51,7 @@ const MyProfile = () => {
     if (session?.user.id) {
       fetchUserPosts();
     }
-  }, []);
+  }, [session?.user.id]);
 
   return (
     <Profile

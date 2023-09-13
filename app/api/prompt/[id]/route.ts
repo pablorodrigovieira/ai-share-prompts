@@ -1,11 +1,17 @@
 import { connectToDB } from "@utils/database";
 import Prompt from "@models/prompt";
+import { IParams, IPrompt } from "@utils/interfaces";
 
 // GET
-export const GET = async (request, { params }) => {
+export const GET = async (
+  request: Request,
+  { params }: { params: IParams },
+) => {
   try {
     await connectToDB();
-    const prompt = await Prompt.findById(params.id).populate("creator");
+    const prompt = await Prompt.findById(params && params.id).populate(
+      "creator",
+    );
     if (!prompt) {
       return new Response("Prompt not found", { status: 404 });
     }
@@ -16,12 +22,15 @@ export const GET = async (request, { params }) => {
 };
 
 // PATCH / UPDATE
-export const PATCH = async (request, { params }) => {
+export const PATCH = async (
+  request: Request,
+  { params }: { params: IParams },
+) => {
   try {
     const { prompt, tag } = await request.json();
 
     await connectToDB();
-    const currentPrompt = await Prompt.findById(params.id);
+    const currentPrompt = (await Prompt.findById(params.id)) as IPrompt;
 
     if (!currentPrompt) {
       return new Response("Prompt not found", { status: 404 });
@@ -39,7 +48,10 @@ export const PATCH = async (request, { params }) => {
 };
 
 // DELETE
-export const DELETE = async (request, { params }) => {
+export const DELETE = async (
+  request: Request,
+  { params }: { params: IParams },
+) => {
   try {
     await connectToDB();
     await Prompt.findByIdAndRemove(params.id);

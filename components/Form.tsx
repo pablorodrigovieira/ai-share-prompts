@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FormEvent } from "react";
 import Link from "next/link";
 
 interface IPost {
@@ -11,7 +11,7 @@ interface IForm {
   post: IPost;
   submitting: boolean;
   setPost: (post: IPost) => void;
-  handleSubmit: (e) => void;
+  handleSubmit: (e: FormEvent) => void;
 }
 
 const Form = (props: IForm) => {

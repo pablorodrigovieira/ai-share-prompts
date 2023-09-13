@@ -14,7 +14,7 @@ const ProfilePicture = (props: IProfilePicture) => {
       alt="profile"
       width={35}
       height={35}
-      onClick={() => setToggleDropdown((prev) => !prev)}
+      onClick={() => setToggleDropdown((prev: boolean) => !prev)}
       className="rounded-full"
     />
   );
