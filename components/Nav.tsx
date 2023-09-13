@@ -9,10 +9,12 @@ import {
   getProviders,
   ClientSafeProvider,
 } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import ProfilePicture from "@components/ProfilePicture";
 
 const Nav = () => {
   const { data: session } = useSession();
+  const router = useRouter();
   const [providers, setProviders] = useState<Record<
     string,
     ClientSafeProvider
@@ -49,7 +51,10 @@ const Nav = () => {
             </Link>
             <button
               type="button"
-              onClick={() => signOut()}
+              onClick={() => {
+                signOut();
+                router.push("/");
+              }}
               className="outline_btn"
             >
               Sign Out

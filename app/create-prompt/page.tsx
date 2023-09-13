@@ -2,17 +2,8 @@
 import React, { useState } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { Session } from "next-auth";
 import Form from "@components/Form";
-
-interface ISession {
-  expires: string;
-  user: {
-    email: string;
-    id: string;
-    image: string;
-    name: string;
-  };
-}
 
 const CreatePrompt = () => {
   const [submitting, setSubmitting] = useState(false);
@@ -21,7 +12,7 @@ const CreatePrompt = () => {
     tag: "",
   });
   const router = useRouter();
-  const { data: session } = useSession<ISession>();
+  const { data: session } = useSession<Session>();
 
   const createPrompt = async (e) => {
     e.preventDefault();
