@@ -5,9 +5,16 @@ import { useSearchParams } from "next/navigation";
 
 import Profile from "@components/Profile";
 
-const UserProfile = ({ params }) => {
+interface IUserProfile {
+  params: {
+    id: string | number
+  }
+}
+
+const UserProfile = (props: IUserProfile) => {
+  const { params } = props;
   const searchParams = useSearchParams();
-  const userName = searchParams.get("name");
+  const userName = searchParams.get("name") ?? "";
 
   const [userPosts, setUserPosts] = useState([]);
 
@@ -24,7 +31,7 @@ const UserProfile = ({ params }) => {
 
   return (
     <Profile
-      name={userName ?? ""}
+      name={userName}
       desc={`Welcome to ${userName}'s personalized profile page. Explore ${userName}'s exceptional prompts and be inspired by the power of their imagination`}
       data={userPosts}
     />
