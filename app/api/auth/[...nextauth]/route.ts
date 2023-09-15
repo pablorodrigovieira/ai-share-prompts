@@ -6,11 +6,11 @@ import { SessionUser } from "@utils/interfaces";
 import { handleError } from "@utils/errorHandler";
 import { FUNCTIONS } from "@app/constants/consts";
 
-function generateRandomNumber(min, max) {
+function generateRandomNumber(min: number, max: number) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-function removeDomainFromEmail(email) {
+function removeDomainFromEmail(email: string) {
   const parts = email.split("@");
   if (parts.length > 1) {
     let localPart = parts[0];

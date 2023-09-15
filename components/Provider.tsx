@@ -5,11 +5,13 @@ import { Session } from "next-auth";
 
 interface ISessionProvider {
   children: React.ReactNode;
-  session: Session | null;
+  session?: Session | null | undefined;
 }
 
 const Provider = (props: ISessionProvider) => {
   const { children, session } = props;
+  // TODO revisit this below
+  //@ts-ignore
   return <SessionProvider session={session}>{children}</SessionProvider>;
 };
 
