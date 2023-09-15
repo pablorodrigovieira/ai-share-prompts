@@ -6,6 +6,35 @@ import { SessionUser } from "@utils/interfaces";
 import { handleError } from "@utils/errorHandler";
 import { FUNCTIONS } from "@app/constants/consts";
 
+function generateRandomNumber(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function removeDomainFromEmail(email) {
+  const parts = email.split("@");
+  if (parts.length > 1) {
+    let localPart = parts[0];
+    const maxLength = 20;
+    const minLength = 8;
+
+    if (localPart.length > maxLength) {
+      // Truncate the local part to the maximum length
+      localPart = localPart.slice(0, maxLength);
+    } else if (localPart.length < minLength) {
+      // Add random digits to reach the minimum length
+      const digitsToAdd = minLength - localPart.length;
+      const randomDigits = Array.from({ length: digitsToAdd }, () =>
+        generateRandomNumber(0, 9),
+      ).join("");
+
+      localPart = localPart + randomDigits;
+    }
+
+    return localPart;
+  }
+  return email;
+}
+
 const handler = NextAuth({
   providers: [
     GoogleProvider({
@@ -45,11 +74,10 @@ const handler = NextAuth({
           });
           // if not create a new user
           if (!userExists) {
+            const username = removeDomainFromEmail(profile.email ?? "");
             await User.create({
               email: profile.email,
-              username: profile.name
-                ? profile.name.replace(" ", "").toLowerCase()
-                : "",
+              username,
               image: profile.image,
             });
           }
