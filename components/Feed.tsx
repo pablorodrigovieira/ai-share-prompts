@@ -2,6 +2,8 @@
 import React, { useState, useEffect, ChangeEvent } from "react";
 import PromptCard from "@components/PromptCard";
 import { IPrompt } from "@utils/interfaces";
+import { handleError } from "@utils/errorHandler";
+import { FUNCTIONS } from "@app/constants/consts";
 
 interface IPromptCardList {
   data: IPrompt[];
@@ -37,7 +39,7 @@ const Feed = () => {
         setPosts(data);
       }
     } catch (e) {
-      console.log("e", e);
+      handleError(e, FUNCTIONS.FETCH_POSTS);
     }
   };
 

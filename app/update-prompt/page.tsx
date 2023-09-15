@@ -2,6 +2,8 @@
 import React, { FormEvent, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Form from "@components/Form";
+import { handleError } from "@utils/errorHandler";
+import { FUNCTIONS } from "@app/constants/consts";
 
 const UpdatePrompt = () => {
   const [submitting, setSubmitting] = useState(false);
@@ -15,22 +17,21 @@ const UpdatePrompt = () => {
 
   useEffect(() => {
     if (promptId) {
+      const getPromptDetails = async () => {
+        try {
+          const response = await fetch(`/api/prompt/${promptId}`);
+          const data = await response.json();
+          setPost({
+            prompt: data.prompt,
+            tag: data.tag,
+          });
+        } catch (e) {
+          handleError(e, FUNCTIONS.GET_PROMPT_DETAILS);
+        }
+      };
       getPromptDetails();
     }
   }, [promptId]);
-
-  const getPromptDetails = async () => {
-    try {
-      const response = await fetch(`/api/prompt/${promptId}`);
-      const data = await response.json();
-      setPost({
-        prompt: data.prompt,
-        tag: data.tag,
-      });
-    } catch (e) {
-      console.log("e", e);
-    }
-  };
 
   const updatePrompt = async (e: FormEvent) => {
     e.preventDefault();
@@ -52,22 +53,20 @@ const UpdatePrompt = () => {
         router.push("/");
       }
     } catch (e) {
-      console.log("e", e);
+      handleError(e, FUNCTIONS.UPDATE_PROMPT);
     } finally {
       setSubmitting(false);
     }
   };
 
   return (
-    <div>
-      <Form
-        type="Update"
-        post={post}
-        submitting={submitting}
-        setPost={setPost}
-        handleSubmit={updatePrompt}
-      />
-    </div>
+    <Form
+      type="Update"
+      post={post}
+      submitting={submitting}
+      setPost={setPost}
+      handleSubmit={updatePrompt}
+    />
   );
 };
 

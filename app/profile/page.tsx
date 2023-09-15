@@ -4,6 +4,8 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Profile from "@components/Profile";
 import { IPrompt, IUserSession } from "@utils/interfaces";
+import { handleError } from "@utils/errorHandler";
+import { FUNCTIONS } from "@app/constants/consts";
 
 const MyProfile = () => {
   const { data: session } = useSession() as unknown as IUserSession;
@@ -14,7 +16,7 @@ const MyProfile = () => {
     try {
       router.push(`/update-prompt?id=${post._id}`);
     } catch (e) {
-      console.log("e", e);
+      handleError(e, FUNCTIONS.HANDLE_EDIT);
     }
   };
 
@@ -31,24 +33,23 @@ const MyProfile = () => {
       const filteredPosts = posts.filter((p) => p._id !== post._id);
       setPosts(filteredPosts);
     } catch (e) {
-      console.log("e", e);
-    }
-  };
-
-  const fetchUserPosts = async () => {
-    try {
-      const res = await fetch(`/api/users/${session?.user.id}`);
-      if (res) {
-        const data = await res.json();
-        setPosts(data);
-      }
-    } catch (e) {
-      console.log("e", e);
+      handleError(e, FUNCTIONS.HANDLE_DELETE);
     }
   };
 
   useEffect(() => {
     if (session?.user.id) {
+      const fetchUserPosts = async () => {
+        try {
+          const res = await fetch(`/api/users/${session?.user.id}`);
+          if (res) {
+            const data = await res.json();
+            setPosts(data);
+          }
+        } catch (e) {
+          handleError(e, FUNCTIONS.FETCH_USER_POSTS);
+        }
+      };
       fetchUserPosts();
     }
   }, [session?.user.id]);

@@ -4,6 +4,8 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Form from "@components/Form";
 import { IUserSession } from "@utils/interfaces";
+import { handleError } from "@utils/errorHandler";
+import { FUNCTIONS } from "@app/constants/consts";
 
 const CreatePrompt = () => {
   const [submitting, setSubmitting] = useState(false);
@@ -33,22 +35,20 @@ const CreatePrompt = () => {
         }
       }
     } catch (e) {
-      console.log("e", e);
+      handleError(e, FUNCTIONS.CREATE_PROMPT);
     } finally {
       setSubmitting(false);
     }
   };
 
   return (
-    <div>
-      <Form
-        type="Create"
-        post={post}
-        submitting={submitting}
-        setPost={setPost}
-        handleSubmit={createPrompt}
-      />
-    </div>
+    <Form
+      type="Create"
+      post={post}
+      submitting={submitting}
+      setPost={setPost}
+      handleSubmit={createPrompt}
+    />
   );
 };
 

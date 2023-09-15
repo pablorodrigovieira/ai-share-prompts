@@ -3,6 +3,8 @@ import GoogleProvider from "next-auth/providers/google";
 import { connectToDB } from "@utils/database";
 import User from "@models/user";
 import { SessionUser } from "@utils/interfaces";
+import { handleError } from "@utils/errorHandler";
+import { FUNCTIONS } from "@app/constants/consts";
 
 const handler = NextAuth({
   providers: [
@@ -16,15 +18,19 @@ const handler = NextAuth({
       let newSession: any = {
         ...session,
       };
-      const sessionUser = (await User.findOne({
-        email: session.user?.email,
-      })) as SessionUser;
+      try {
+        const sessionUser = (await User.findOne({
+          email: session.user?.email,
+        })) as SessionUser;
 
-      if (sessionUser && sessionUser?._id) {
-        newSession.user = {
-          ...session.user,
-        };
-        newSession.user["id"] = sessionUser && sessionUser?._id.toString();
+        if (sessionUser && sessionUser?._id) {
+          newSession.user = {
+            ...session.user,
+          };
+          newSession.user["id"] = sessionUser && sessionUser?._id.toString();
+        }
+      } catch (e) {
+        handleError(e, FUNCTIONS.SESSION);
       }
       return newSession;
     },
@@ -51,7 +57,7 @@ const handler = NextAuth({
         }
         return false;
       } catch (e) {
-        console.log("e", e);
+        handleError(e, FUNCTIONS.SIGN_IN);
         return false;
       }
     },

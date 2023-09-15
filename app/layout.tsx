@@ -8,7 +8,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "AI - Share Prompts",
-  description: "Discover & Share AI Prompts",
+  description: "Discover & Share AI Prompts.",
 };
 
 export default function RootLayout({
