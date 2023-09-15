@@ -16,7 +16,7 @@ export const GET = async (
       return new Response("Prompt not found", { status: 404 });
     }
     return new Response(JSON.stringify(prompt), { status: 200 });
-  } catch (e) {
+  } catch (e: Error) {
     return new Response("Failed to get prompt by ID", { status: 500 });
   }
 };
@@ -42,7 +42,7 @@ export const PATCH = async (
     await currentPrompt.save();
 
     return new Response(JSON.stringify(currentPrompt), { status: 200 });
-  } catch (e) {
+  } catch (e: Error) {
     return new Response("Failed to update the prompt", { status: 500 });
   }
 };
@@ -56,7 +56,7 @@ export const DELETE = async (
     await connectToDB();
     await Prompt.findByIdAndRemove(params.id);
     return new Response("Prompt deleted successfully", { status: 200 });
-  } catch (e) {
+  } catch (e: Error) {
     return new Response("Failed to delete prompt", { status: 500 });
   }
 };

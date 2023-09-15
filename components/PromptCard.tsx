@@ -7,7 +7,7 @@ import { IPrompt, IUserSession } from "@utils/interfaces";
 
 interface PromptCardInterface {
   post: IPrompt;
-  handleTagClick?: () => void;
+  handleTagClick?: (tagName: string) => void;
   handleEdit?: () => void;
   handleDelete?: () => void;
 }
@@ -63,7 +63,7 @@ const PromptCard = (props: PromptCardInterface) => {
       <p
         className="font-inter text-sm blue_gradient cursor-pointer"
         onClick={() => {
-          handleTagClick && handleTagClick();
+          handleTagClick && handleTagClick(post.tag);
         }}
       >
         {post.tag}

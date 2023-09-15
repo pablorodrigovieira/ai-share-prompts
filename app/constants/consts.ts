@@ -7,5 +7,6 @@ export const FUNCTIONS = {
   UPDATE_PROMPT: "updatePrompt",
   HANDLE_EDIT: "handleEdit",
   HANDLE_DELETE: "handleDelete",
+  HANDLE_SEARCH_CHANGE: "handleSearchChange",
   GET_PROMPT_DETAILS: "getPromptDetails",
 };

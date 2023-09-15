@@ -25,7 +25,7 @@ const UpdatePrompt = () => {
             prompt: data.prompt,
             tag: data.tag,
           });
-        } catch (e) {
+        } catch (e: Error) {
           handleError(e, FUNCTIONS.GET_PROMPT_DETAILS);
         }
       };
@@ -52,7 +52,7 @@ const UpdatePrompt = () => {
       if (res && res.ok) {
         router.push("/");
       }
-    } catch (e) {
+    } catch (e: Error) {
       handleError(e, FUNCTIONS.UPDATE_PROMPT);
     } finally {
       setSubmitting(false);
