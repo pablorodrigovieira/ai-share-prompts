@@ -31,13 +31,13 @@ const Feed = () => {
   const [searchText, setSearchText] = useState("");
   const [searchTimeout, setSearchTimeout] = useState<
     undefined | ReturnType<typeof setTimeout>
-  >(null);
+  >(undefined);
   const [searchedResults, setSearchedResults] = useState([]);
 
   const filterPrompts = (searchText: string) => {
     const regex = new RegExp(searchText, "i"); // 'i' flag for case-insensitive search
     return posts.filter(
-      (item) =>
+      (item: IPrompt) =>
         regex.test(item.creator.username) ||
         regex.test(item.tag) ||
         regex.test(item.prompt),
