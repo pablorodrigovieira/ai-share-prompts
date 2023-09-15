@@ -29,7 +29,7 @@ const handler = NextAuth({
           };
           newSession.user["id"] = sessionUser && sessionUser?._id.toString();
         }
-      } catch (e: Error) {
+      } catch (e: any) {
         handleError(e, FUNCTIONS.SESSION);
       }
       return newSession;
@@ -56,7 +56,7 @@ const handler = NextAuth({
           return true;
         }
         return false;
-      } catch (e: Error) {
+      } catch (e: any) {
         handleError(e, FUNCTIONS.SIGN_IN);
         return false;
       }

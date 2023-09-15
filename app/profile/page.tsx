@@ -15,7 +15,7 @@ const MyProfile = () => {
   const handleEdit = (post: IPrompt) => {
     try {
       router.push(`/update-prompt?id=${post._id}`);
-    } catch (e: Error) {
+    } catch (e: any) {
       handleError(e, FUNCTIONS.HANDLE_EDIT);
     }
   };
@@ -32,7 +32,7 @@ const MyProfile = () => {
 
       const filteredPosts = posts.filter((p) => p._id !== post._id);
       setPosts(filteredPosts);
-    } catch (e: Error) {
+    } catch (e: any) {
       handleError(e, FUNCTIONS.HANDLE_DELETE);
     }
   };
@@ -46,7 +46,7 @@ const MyProfile = () => {
             const data = await res.json();
             setPosts(data);
           }
-        } catch (e: Error) {
+        } catch (e: any) {
           handleError(e, FUNCTIONS.FETCH_USER_POSTS);
         }
       };

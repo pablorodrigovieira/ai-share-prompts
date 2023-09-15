@@ -62,7 +62,7 @@ const Feed = () => {
       }, 500);
 
       setSearchTimeout(timeoutId);
-    } catch (e: Error) {
+    } catch (e: any) {
       handleError(e, FUNCTIONS.HANDLE_SEARCH_CHANGE);
     }
   };
@@ -74,7 +74,7 @@ const Feed = () => {
         const data = await res.json();
         setPosts(data);
       }
-    } catch (e: Error) {
+    } catch (e: any) {
       handleError(e, FUNCTIONS.FETCH_POSTS);
     }
   };
@@ -102,7 +102,6 @@ const Feed = () => {
           className="search_input peer"
         />
       </form>
-      {/* All Prompts */}
       {searchText ? (
         <PromptCardList
           data={searchedResults}

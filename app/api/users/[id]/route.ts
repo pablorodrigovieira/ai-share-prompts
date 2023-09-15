@@ -12,7 +12,7 @@ export const GET = async (
       creator: params && params.id,
     }).populate("creator");
     return new Response(JSON.stringify(prompts), { status: 200 });
-  } catch (e: Error) {
+  } catch (e: any) {
     return new Response("Failed to fetch all prompts", { status: 500 });
   }
 };

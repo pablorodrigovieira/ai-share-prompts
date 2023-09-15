@@ -1,6 +1,7 @@
 export const FUNCTIONS = {
   SIGN_IN: "signIn",
   SESSION: "session",
+  CONNECT_TO_DB: "connectToDB",
   FETCH_POSTS: "fetchPosts",
   FETCH_USER_POSTS: "fetchUserPosts",
   CREATE_PROMPT: "createPrompt",

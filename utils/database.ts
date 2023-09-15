@@ -1,4 +1,6 @@
 import mongoose, { ConnectOptions } from "mongoose";
+import { handleError } from "@utils/errorHandler";
+import { FUNCTIONS } from "@app/constants/consts";
 
 let isConnected = false;
 
@@ -16,7 +18,7 @@ export const connectToDB = async () => {
     } as ConnectOptions);
     isConnected = true;
     console.log("MongoDB connected");
-  } catch (e: Error) {
-    console.log("error", e);
+  } catch (e: any) {
+    handleError(e, FUNCTIONS.CONNECT_TO_DB);
   }
 };
